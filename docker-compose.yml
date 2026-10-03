@@ -1,0 +1,20 @@
+# SQL Server 2022 for OOP2 labs. Runs on the Mac (OrbStack), reached from the Windows VM.
+# Password lives in .env (gitignored).
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    container_name: oop2-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    volumes:
+      - oop2-sql-data:/var/opt/mssql
+    restart: unless-stopped
+    mem_limit: 2g
+
+volumes:
+  oop2-sql-data:
