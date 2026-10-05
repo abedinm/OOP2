@@ -5,7 +5,9 @@ AIUB coursework, Section C. C# (.NET, Windows Forms) + SQL Server.
 ## Setup (MacBook, Apple Silicon)
 
 - **Visual Studio 2022 + SSMS** run inside a Windows 11 ARM VM (VMware Fusion).
-  This repo is shared into the VM, so projects open straight from here.
+  This repo is mapped in the VM as drive **Z:** (macOS File Sharing over SMB,
+  `\\172.16.37.1\minhazulabedin\Developer\OOP2`). Fusion's own shared folders
+  don't work for Windows on Apple silicon.
 - **SQL Server 2022** runs on the Mac in a container (OrbStack):
 
   ```
