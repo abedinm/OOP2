@@ -18,7 +18,7 @@ AIUB coursework, Section C. C# (.NET, Windows Forms) + SQL Server.
 
 | Field | Value |
 |-------|-------|
-| Server | `<Mac IP>,1433`: the Mac's address on VMware's NAT network, i.e. the VM's IPv4 with the last number set to `.1` (VM `192.168.x.128` → `192.168.x.1`). Stable, unlike the Wi-Fi IP. |
+| Server | `172.16.37.1,1433` (the Mac on VMware's NAT network; stable, unlike the Wi-Fi IP) |
 | Auth | SQL Server Authentication |
 | Login | `sa` |
 | Password | from `.env` |
@@ -27,7 +27,7 @@ AIUB coursework, Section C. C# (.NET, Windows Forms) + SQL Server.
 Connection string for ADO.NET:
 
 ```
-Server=<Mac IP>,1433;Database=OOP2;User Id=sa;Password=<from .env>;TrustServerCertificate=True;
+Server=172.16.37.1,1433;Database=OOP2;User Id=sa;Password=<from .env>;TrustServerCertificate=True;
 ```
 
 ## Layout
