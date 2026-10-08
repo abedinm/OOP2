@@ -39,6 +39,7 @@ One Visual Studio project per lab, all in `OOP2.sln`:
 ```
 Lab-01/      Windows Forms App (.NET 8)
 SmokeTest/   checks WinForms + SQL Server end to end
+SenseAssist/ accessible companion app (see below)
 ```
 
 ## Labs
@@ -47,3 +48,25 @@ SmokeTest/   checks WinForms + SQL Server end to end
 |-----|-------|--------|
 | Lab-01 | — | project created (empty Form1) |
 | SmokeTest | toolchain check: WinForms + SQL Server | done |
+| SenseAssist | accessible app for blind / hard-of-hearing users | built |
+
+## SenseAssist
+
+A Windows Forms app for people who are blind or have low vision and/or use hearing aids.
+
+- **Accounts:** register, sign in, log out (PBKDF2-hashed passwords).
+- **Reminders and Contacts:** add, edit, save, delete, search, mark done.
+- **Blind / low vision:** every screen, field, row and alert is spoken (System.Speech);
+  fully keyboard-driven (F1 help, Ctrl+1..4 pages, Ctrl+N/E, Delete, Ctrl+R read, Esc stop);
+  high-contrast and large-text modes; works with screen readers (accessible names everywhere).
+- **Hard of hearing:** live caption bar shows everything that is spoken; due reminders
+  flash the caption bar and the taskbar button.
+- **Logging:** activity log in the database (viewable/clearable in the app) plus a daily
+  log file in `%LOCALAPPDATA%\SenseAssist\logs`.
+- **Data:** SQL Server database `SenseAssist` (created automatically on first run).
+
+Structure: `Models/` (Entity base class → Reminder, Contact), `Data/` (`IRepository<T>`,
+repositories, ActivityLogger), `Services/` (Auth, Speech, Settings, AppLog), `UI/` (theme,
+custom controls, forms, pages; `CrudPage<T>` is the shared add/edit/delete screen).
+
+Run in the VM: `cd /d Z:\SenseAssist && dotnet run`, or set it as the startup project in Visual Studio.
