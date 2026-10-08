@@ -37,12 +37,13 @@ Server=172.16.37.1,1433;Database=OOP2;User Id=sa;Password=<from .env>;TrustServe
 One Visual Studio project per lab, all in `OOP2.sln`:
 
 ```
-Lab-01/   (created from Visual Studio in the VM)
-Lab-02/
+Lab-01/      Windows Forms App (.NET 8)
+SmokeTest/   checks WinForms + SQL Server end to end
 ```
 
 ## Labs
 
 | Lab | Topic | Status |
 |-----|-------|--------|
-| Lab-01 | — | not started |
+| Lab-01 | — | project created (empty Form1) |
+| SmokeTest | toolchain check: WinForms + SQL Server | done |
