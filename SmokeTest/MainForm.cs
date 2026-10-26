@@ -1,4 +1,5 @@
 using System.Data;
+using System.Reflection;
 using Microsoft.Data.SqlClient;
 
 namespace SmokeTest;
@@ -58,10 +59,15 @@ public class MainForm : Form
         cmd.ExecuteNonQuery();
     }
 
-    // The sa password lives in the repo's gitignored .env; walk up from the exe to find it.
+    // The sa password lives in the repo's gitignored .env. Check the repo root recorded at build
+    // time (bin/ is outside the repo on Windows), then walk up from the exe.
     private static string ConnectionString()
     {
-        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        var repoRoot = typeof(MainForm).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .FirstOrDefault(a => a.Key == "RepoRoot")?.Value;
+        var dir = !string.IsNullOrEmpty(repoRoot) && File.Exists(Path.Combine(repoRoot, ".env"))
+            ? new DirectoryInfo(repoRoot)
+            : new DirectoryInfo(AppContext.BaseDirectory);
         while (dir != null && !File.Exists(Path.Combine(dir.FullName, ".env")))
             dir = dir.Parent;
         if (dir == null)

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.Data.SqlClient;
 
 namespace SenseAssist.Data;
@@ -56,9 +57,9 @@ public static class Db
         if (!string.IsNullOrEmpty(fromEnvironment))
             return fromEnvironment;
 
-        for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir != null; dir = dir.Parent)
+        foreach (var folder in CandidateFolders())
         {
-            var envFile = Path.Combine(dir.FullName, ".env");
+            var envFile = Path.Combine(folder, ".env");
             if (!File.Exists(envFile))
                 continue;
             var line = File.ReadAllLines(envFile).FirstOrDefault(l => l.StartsWith("MSSQL_SA_PASSWORD="));
@@ -66,6 +67,18 @@ public static class Db
                 return line["MSSQL_SA_PASSWORD=".Length..];
         }
         throw new InvalidOperationException("Database password not found. Expected MSSQL_SA_PASSWORD in the repo's .env file.");
+    }
+
+    // On Windows the build output lives outside the repo (see Directory.Build.props),
+    // so check the repo root recorded at build time before walking up from the exe.
+    static IEnumerable<string> CandidateFolders()
+    {
+        var repoRoot = typeof(Db).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .FirstOrDefault(a => a.Key == "RepoRoot")?.Value;
+        if (!string.IsNullOrEmpty(repoRoot))
+            yield return repoRoot;
+        for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir != null; dir = dir.Parent)
+            yield return dir.FullName;
     }
 
     const string SchemaSql = """

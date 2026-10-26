@@ -1,0 +1,24 @@
+<Project>
+
+  <!--
+    Inside the Windows VM the repo is opened from the Z: network drive (the Mac's folder over SMB).
+    Building there writes hundreds of small files over the network, which is very slow, so on Windows
+    bin/ and obj/ go to the VM's local disk instead. Source files stay on Z:. Mac builds are unchanged.
+  -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <OOP2BuildRoot>$(LOCALAPPDATA)\OOP2-build\$(MSBuildProjectName)\</OOP2BuildRoot>
+    <BaseIntermediateOutputPath>$(OOP2BuildRoot)obj\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(OOP2BuildRoot)bin\</BaseOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Never compile stray build output left inside a project folder. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin\**;obj\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Lets apps find the repo's .env even though their .exe now lives outside the repo. -->
+    <AssemblyMetadata Include="RepoRoot" Value="$(MSBuildThisFileDirectory)" />
+  </ItemGroup>
+
+</Project>
