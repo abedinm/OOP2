@@ -40,6 +40,7 @@ One Visual Studio project per lab, all in `OOP2.sln`:
 Lab-01/      Windows Forms App (.NET 8)
 SmokeTest/   checks WinForms + SQL Server end to end
 SenseAssist/ accessible companion app (see below)
+SimpleLoginUI/ simple sign-in screen built with the WinForms designer
 ```
 
 ## Labs
@@ -49,6 +50,7 @@ SenseAssist/ accessible companion app (see below)
 | Lab-01 | — | project created (empty Form1) |
 | SmokeTest | toolchain check: WinForms + SQL Server | done |
 | SenseAssist | accessible app for blind / hard-of-hearing users | built |
+| SimpleLoginUI | simple UI/UX sign-in form (designer-based) | built |
 
 ## SenseAssist
 
