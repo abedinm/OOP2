@@ -42,6 +42,7 @@ SmokeTest/   checks WinForms + SQL Server end to end
 SenseAssist/ accessible companion app (see below)
 SimpleLoginUI/ simple sign-in screen built with the WinForms designer
 AnimalInheritance/ console demo of inheritance (Animal -> Dog, Cat, Bird)
+course-materials/  instructor's lecture slides (weeks 1-3) and example code
 ```
 
 ## Labs

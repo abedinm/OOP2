@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace track
+{
+    class Student
+    {
+        private int marks = 80;
+
+        public int GetMarks()
+        {
+            return marks;
+        }
+    }
+
+    internal class Program
+    {
+        enum Day { Sunday, Monday, Tuesday }
+
+        static void Change(ref int x)
+        {
+            x = x + 5;
+        }
+
+        static void GetValue(out int x)
+        {
+            x = 20;
+        }
+        static void Show(params int[] n)
+        {
+            Console.WriteLine(n.Length);
+        }
+        static void Main(string[] args)
+        {
+            int a = 10;
+            Change(ref a);
+            Console.WriteLine(a);
+
+            int b;
+            GetValue(out b);
+            Console.WriteLine(b);
+
+            Show(10, 20, 30);
+
+            int[][] marks =
+            {
+            new int[] { 70, 80 },
+            new int[] { 90, 95, 100 }
+        };
+            Console.WriteLine(marks[1][2]);
+
+            Student s = new Student();
+            Console.WriteLine(s.GetMarks());
+
+            Console.WriteLine((int)Day.Monday);
+        }
+    }
+}
